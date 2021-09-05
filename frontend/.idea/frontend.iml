@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage/build" />
+      <excludeFolder url="file://$MODULE_DIR$/gengoffee/linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage/.pub" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
