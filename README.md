@@ -1,30 +1,20 @@
-# Groupe de zhang_e 863761
+# Gengoffee
 
-# Setup python project
-Installer Postrgres vérifier que la commande 'pg_config' fonctionne
+## A mobile application project for the association Gengoffee
 
-Dans le directory de Django :
+This project was initiated as a school project. The purpose of the application is to grand the opportunity to create event through the mobile application and synchronously on Meetup.
 
-python -m venv venv
-ou 
-python3 -m venv venv
+## How to use
 
-Activer l'environement avec : 
-source venv/bin/activate
+### BackEnd
 
-puis :
-pip install -r requirement.in
+Follow the instruction from the Backend's README.
 
-Crée une fichier .env en vous basant sur le .env.template
+### Frontend
 
-# Setup database
-Créer la base de donnée
+You can either test it on an iOS, Android or a browser.
+"Flutter run -d" will display all the possibilities.
+Running it on Android-studio allow you to try it on a Android device.
+Running it on Xcode allow you to run it on an iOS device.
 
-Faites :
-python manage.py makemigrations
-et
-python manage.py migrate
-
-
-Pour finir :
-python3 manage.py runserver
+### Made by Alan Mecheraf, Azeau Julien.
