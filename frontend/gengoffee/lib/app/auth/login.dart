@@ -129,57 +129,42 @@ class MyLoginFormState extends State<MyLoginForm> {
               _password = value;
             },
           ), // input field for password
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Register()));
-              },
-              child: Text('Not registered yet ?'),
-              style: ButtonStyle(
-                  backgroundColor:
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Register()));
+                  },
+                  child: Text('Not registered yet ?'),
+                  style: ButtonStyle(
+                      backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.grey),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                          side: BorderSide(color: Colors.grey))))),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Profile()));
-            },
-            child: Text('Check your profile'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Create_event()));
-            },
-            child: Text('Créer un événement'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DisplayAllEvents()));
-            },
-            child: Text('Montrer tous les événements.'),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState.validate()) {
-                  // you'd often call a server or save the information in a database.
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
-                  validateAndSave();
-                  loginCall(_pseudo, _password).then((value) => {
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                              side: BorderSide(color: Colors.grey))))),
+              SizedBox(width: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Validate returns true if the form is valid, or false otherwise.
+                    if (_formKey.currentState.validate()) {
+                      // you'd often call a server or save the information in a database.
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text('Processing Data')));
+                      validateAndSave();
+                      loginCall(_pseudo, _password).then((value) => {
                         //print("I am token : " + value.token + "\n")
                       });
-                }
-              },
-              child: Text('Login'),
-            ),
+                    }
+                  },
+                  child: Text('Login'),
+                ),
+              ),
+            ],
           ),
         ],
       ),

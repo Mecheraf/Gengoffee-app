@@ -35,7 +35,7 @@ class UserResponse(BaseSerializer):
     gender = PersonalInfoGenderResponse()
     avatar = serializers.ImageField(required=False)
     role = serializers.CharField(required=False, max_length=3, min_length=3)
-    nationality = serializers.CharField(required=False, max_length=3, min_length=3)
+    nationality = serializers.CharField(required=False, max_length=5, min_length=5)
 
     class Meta:
         fields = ['username', 'email', 'first_name', 'last_name', 'age', 'city', 'country',
@@ -54,7 +54,7 @@ class RegistrationResponse(BaseSerializer):
     avatar = serializers.ImageField(required=False)
     token = serializers.CharField(required=False)
     role = serializers.CharField(required=False, max_length=3, min_length=3)
-    nationality = serializers.CharField(required=False, max_length=3, min_length=3)
+    nationality = serializers.CharField(required=False, max_length=5, min_length=5)
 
     class Meta:
         fields = ['username', 'email', 'first_name', 'last_name', 'age', 'city', 'country',

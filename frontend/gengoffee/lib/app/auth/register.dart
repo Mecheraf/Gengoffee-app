@@ -24,9 +24,10 @@ class MyCustomForm extends StatefulWidget {
 }
 
 enum Gender { Male, Female, Other }
+List<String> nationalities = ["FRE", "JAP", "OTHER"];
 
 Future<Account> registerCall(email, password, password2, pseudo, firstName,
-    lastName, age, city, country, genderIndex) async {
+    lastName, age, city, country, nationality, genderIndex) async {
   MultipartRequest request = http.MultipartRequest(
       'POST', Uri.parse('http://127.0.0.1:8000/api/auth/register'));
 
@@ -40,6 +41,7 @@ Future<Account> registerCall(email, password, password2, pseudo, firstName,
     'age': age.toString(),
     'city': city,
     'country': country,
+    'nationality': nationality,
     'gender': genderIndex.toString()
   });
 
@@ -73,6 +75,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   int _age;
   String _city;
   String _country;
+  String _nationality;
   Gender _gender = Gender.Male;
 
   void validateAndSave() {
@@ -114,7 +117,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               }
 
               bool emailIsValid = RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                   .hasMatch(_email);
               if (!emailIsValid) {
                 return 'Email must be a valid email address';
@@ -237,6 +240,18 @@ class MyCustomFormState extends State<MyCustomForm> {
               _country = value;
             },
           ), // input field for country
+          DropdownButton<String>(
+              value: _nationality,
+              onChanged: (String newValue) {
+                setState(() {
+                  _nationality = newValue;
+                });
+              },
+              items: nationalities
+                  .map<DropdownMenuItem<String>>((String nationality) {
+                return DropdownMenuItem<String>(
+                    value: nationality, child: Text(nationality));
+              }).toList()), // input field for nationality
           DropdownButton<Gender>(
               value: _gender,
               onChanged: (Gender newValue) {
@@ -260,16 +275,17 @@ class MyCustomFormState extends State<MyCustomForm> {
                       .showSnackBar(SnackBar(content: Text('Processing Data')));
                   validateAndSave();
                   registerCall(
-                          _email,
-                          _password,
-                          _password2,
-                          _pseudo,
-                          _firstName,
-                          _lastName,
-                          _age,
-                          _city,
-                          _country,
-                          _gender.index)
+                      _email,
+                      _password,
+                      _password2,
+                      _pseudo,
+                      _firstName,
+                      _lastName,
+                      _age,
+                      _city,
+                      _country,
+                      _nationality,
+                      _gender.index)
                       .then((value) => {print(value)});
                 }
               },
@@ -278,11 +294,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
           Center(
               child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Go back to Login'),
-          )),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Go back to Login'),
+              )),
           // Add TextFormFields and ElevatedButton here.
         ],
       ),

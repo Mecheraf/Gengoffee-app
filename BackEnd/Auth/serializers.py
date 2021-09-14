@@ -23,6 +23,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             age=self.validated_data['age'],
             city=self.validated_data['city'],
             country=self.validated_data['country'],
+            nationality=self.validated_data['nationality'],
             gender=self.validated_data['gender'],
         )
         password = self.validated_data['password']
@@ -50,12 +51,12 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     country = serializers.CharField(required=False)
     gender = serializers.IntegerField(required=False, min_value=0, max_value=3)
     role = serializers.CharField(required=False, max_length=3)
-    nationality = serializers.CharField(required=False, max_length=3)
+    nationality = serializers.CharField(required=False, max_length=5)
 
     class Meta:
         model = Account
         fields = ['username', 'email', 'first_name', 'last_name', 'age', 'city', 'country',
-                  'gender', 'avatar', 'role', 'nationality']
+                  'gender', 'role', 'nationality']
 
 
 class AccountPropertiesSerializer(serializers.ModelSerializer):
@@ -68,7 +69,7 @@ class AccountPropertiesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['id', 'username', 'email', 'avatar', 'first_name', 'last_name', 'age', 'city', 'country', 'gender', 'avatar', 'role', 'nationality']
+        fields = ['id', 'username', 'email', 'avatar', 'first_name', 'last_name', 'age', 'city', 'country', 'gender', 'role', 'nationality']
 
     def get_first_name(self, account):
         return PersonalDataSerializer(account.first_name, account.show_first_name).data

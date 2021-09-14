@@ -30,9 +30,11 @@ class Role:
 class Nationality:
     FRENCH = "FRE"
     JAPANESE = "JAP"
+    OTHER = "OTHER"
     NATIONALITY_CHOICES = (
         (FRENCH, "Français"),
         (JAPANESE, "Japonais"),
+        (OTHER, "Other"),
     )
 
 def get_avatar_path(instance, filename):
@@ -100,7 +102,7 @@ class Account(AbstractBaseUser):
     gender = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(2)])
 
     role = models.CharField(max_length=3, choices=Role.ROLE_CHOICES, default=Role.MEMBER)
-    nationality = models.CharField(max_length=3, choices=Nationality.NATIONALITY_CHOICES)
+    nationality = models.CharField(max_length=5, choices=Nationality.NATIONALITY_CHOICES)
 
     show_first_name = models.BooleanField(default=False)
     show_last_name = models.BooleanField(default=False)

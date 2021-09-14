@@ -6,10 +6,11 @@ class Account {
   final int age;
   final String city;
   final String country;
+  final String nationality;
   final int gender;
   final String token;
 
-  Account({this.username, this.email, this.firstName, this.lastName, this.age, this.city, this.country, this.gender, this.token});
+  Account({this.username, this.email, this.firstName, this.lastName, this.age, this.city, this.country, this.nationality, this.gender, this.token});
 
   factory Account.fromJson(Map<String, dynamic> json) {
     return Account(
@@ -20,6 +21,7 @@ class Account {
       age: json['age'],
       city: json['city'],
       country: json['country'],
+      nationality: json['nationality'],
       gender: json['gender'],
       token: json['token'],
     );

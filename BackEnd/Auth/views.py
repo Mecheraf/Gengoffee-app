@@ -34,6 +34,7 @@ def api_register_user_view(request):
             'age': user.age,
             'city': user.city,
             'country': user.country,
+            'nationality': user.nationality,
             'gender': user.gender,
             'token': token,
         }
@@ -70,7 +71,6 @@ def api_logout_user_view(request):
 
 @swagger_auto_schema(method=GetUserSchema.method, responses=GetUserSchema.response)
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def api_user_info_view(request):
     try:
         account = request.user

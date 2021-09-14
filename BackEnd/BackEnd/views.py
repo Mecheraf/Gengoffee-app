@@ -21,7 +21,7 @@ def ErrorView(errors, code):
 def UnauthorizedView():
     return Response({
         "message": "Unauthorized"
-    }, status=status.HTTP_401_UNAUTHORIZED)
+    }, status=status.HTTP_404_NOT_FOUND)
 
 
 def TokenErrors(error):
