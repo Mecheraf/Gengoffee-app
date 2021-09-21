@@ -86,11 +86,9 @@ class MyLoginFormState extends State<MyLoginForm> {
     super.initState();
 
     authService.isAuthenticated().then((authenticated) {
-      if(authenticated) {
+      if (authenticated) {
         Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Home())
-        );
+            context, MaterialPageRoute(builder: (context) => Home()));
       } else {
         busy = false;
       }
@@ -130,92 +128,93 @@ class MyLoginFormState extends State<MyLoginForm> {
     // Build a Form widget using the _formKey created above.
     return Provider<AuthService>(
       create: (_) => AuthService(),
-      child: !busy ? Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            if (_loginError) Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 206, 198, 1),
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(3)
-                  )
-
-              ),
-              child: Text(
-                "Wrong credentials",
-                style: TextStyle(
-                  color: Color.fromRGBO(132, 115, 113, 1),
-                ),
-              ),
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'Pseudo : ', icon: Icon(Icons.location_history)),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Pseudo cannot be blank';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                _pseudo = value;
-              },
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'Password : ', icon: Icon(Icons.lock)),
-              obscureText: true,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Password cannot be blank';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                _password = value;
-              },
-            ), // input field for password
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) => Register()));
-                    },
-                    child: Text('Not registered yet ?'),
-                    style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.grey),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero,
-                                side: BorderSide(color: Colors.grey))))),
-                SizedBox(width: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState.validate()) {
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text('Processing Data')));
-                        validateAndSave();
+      child: !busy
+          ? Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  if (_loginError)
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 206, 198, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(3))),
+                      child: Text(
+                        "Wrong credentials",
+                        style: TextStyle(
+                          color: Color.fromRGBO(132, 115, 113, 1),
+                        ),
+                      ),
+                    ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        labelText: 'Pseudo : ',
+                        icon: Icon(Icons.location_history)),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Pseudo cannot be blank';
                       }
+                      return null;
                     },
-                    child: Text('Login'),
+                    onChanged: (value) {
+                      _pseudo = value;
+                    },
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ) : Container(),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        labelText: 'Password : ', icon: Icon(Icons.lock)),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Password cannot be blank';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      _password = value;
+                    },
+                  ), // input field for password
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Register()));
+                          },
+                          child: Text('Not registered yet ?'),
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.grey),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero,
+                                      side: BorderSide(color: Colors.grey))))),
+                      SizedBox(width: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            // Validate returns true if the form is valid, or false otherwise.
+                            if (_formKey.currentState.validate()) {
+                              // you'd often call a server or save the information in a database.
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Processing Data')));
+                              validateAndSave();
+                            }
+                          },
+                          child: Text('Login'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          : Container(),
     );
   }
 }
