@@ -8,6 +8,7 @@ import 'package:gengoffee/models/account.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:gengoffee/app/profile.dart';
+import 'package:gengoffee/display_all_event.dart';
 
 void main() => runApp(const Home());
 
@@ -35,23 +36,17 @@ class HomeUI extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 1: Business',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    MyDisplayAllEventsDisplay(),
     Text(
       'Index 3: Settings',
       style: optionStyle,
     ),
+    MyProfileDisplay(),
   ];
 
   void _onItemTapped(int index) {

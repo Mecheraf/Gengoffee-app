@@ -7,25 +7,26 @@ import 'package:gengoffee/models/account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  String token;
-  Account user;
+  String _token;
+  Account _user;
 
-  Future<void> getToken() async {
+  Future<String> getToken() async {
     if (kIsWeb) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      token = prefs.getString("token");
+      _token = prefs.getString("token");
     } else {
       final prefs = new FlutterSecureStorage();
-      token = await prefs.read(key: 'token');
+      _token = await prefs.read(key: 'token');
     }
+    return _token;
   }
 
-  Future<void> getUser() async {
+  Future<Account> getUser() async {
     await getToken();
-    if(token == null || token == "") return false;
+    if (_token == null || _token == "") return null;
 
     Dio dio = new Dio();
-    dio.options.headers["Authorization"] = "Token $token";
+    dio.options.headers["Authorization"] = "Token $_token";
 
     var response;
 
@@ -36,21 +37,20 @@ class AuthService {
         response = await dio.get("http://10.0.2.2:8000/api/auth/");
       }
 
-      user = Account.fromJson(response.data);
+      _user = Account.fromJson(response.data);
     } on DioError catch (e) {
       print(e.message);
     }
+    return _user;
   }
 
   Future<bool> isAuthenticated() async {
     await getUser();
 
-    if(user != null) {
+    if (_user != null) {
       return true;
     } else {
       return false;
     }
   }
-
-
 }

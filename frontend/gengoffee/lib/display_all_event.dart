@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:gengoffee/services/event_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DisplayAllEvents extends StatelessWidget {
@@ -23,87 +24,23 @@ class MyDisplayAllEventsDisplay extends StatefulWidget {
 }
 
 class MyDisplayAllEventsDisplayState extends State<MyDisplayAllEventsDisplay> {
+  EventService eventService = EventService();
+  //Pour appeler les fonctions de event_services.dart
+
   Map<String, dynamic> events;
-
-  Future<void> getEvents() async {
-    Dio dio = new Dio();
-    if (kIsWeb) {
-      final prefs = await SharedPreferences.getInstance();
-      final String token = prefs.getString('token') ?? 0;
-      dio.options.headers["Authorization"] = "Token $token";
-    } else {
-      final prefs = new FlutterSecureStorage();
-      final String token = await prefs.read(key: 'token') ?? 0;
-      dio.options.headers["Authorization"] = "Token $token";
-    }
-    //Ici on récupère le token dans l'instance
-    var response;
-    if (kIsWeb) {
-      response = await dio.get("http://127.0.0.1:8000/api/event/all");
-    } else {
-      response = await dio.get("http://10.0.2.2:8000/api/event/all");
-    }
-    //Grâce au token, on peut faire un appel api avec le token.
-    print(response.data);
-    setState(() => events = jsonDecode(response.toString()));
+  Future<void> updateEvents() async {
+    events = await eventService.getEvents();
+    setState(() {});
     //Ici on définit la variable user
-  }
-
-  Future<void> subscribeEvent(_id) async {
-    Dio dio = new Dio();
-    print("This is id : $_id\n");
-    if (kIsWeb) {
-      final prefs = await SharedPreferences.getInstance();
-      final String token = prefs.getString('token') ?? 0;
-      dio.options.headers["Authorization"] = "Token $token";
-    } else {
-      final prefs = new FlutterSecureStorage();
-      final String token = await prefs.read(key: 'token') ?? 0;
-      dio.options.headers["Authorization"] = "Token $token";
-    }
-    //Ici on récupère le token dans l'instance
-    var response;
-    if (kIsWeb) {
-      response = await dio.patch("http://127.0.0.1:8000/api/event/join/$_id");
-    } else {
-      response = await dio.patch("http://10.0.2.2:8000/api/event/join/$_id");
-    }
-    //Grâce au token, on peut faire un appel api avec le token.
-    print(response.data);
-  }
-
-  Future<void> unsubscribeEvent(_id) async {
-    Dio dio = new Dio();
-    print("This is id : $_id\n");
-    if (kIsWeb) {
-      final prefs = await SharedPreferences.getInstance();
-      final String token = prefs.getString('token') ?? 0;
-      dio.options.headers["Authorization"] = "Token $token";
-    } else {
-      final prefs = new FlutterSecureStorage();
-      final String token = await prefs.read(key: 'token') ?? 0;
-      dio.options.headers["Authorization"] = "Token $token";
-    }
-    //Ici on récupère le token dans l'instance
-    var response;
-    if (kIsWeb) {
-      response = await dio.patch("http://127.0.0.1:8000/api/event/quit/$_id");
-    } else {
-      response = await dio.patch("http://10.0.2.2:8000/api/event/quit/$_id");
-    }
-    //Grâce au token, on peut faire un appel api avec le token.
-    print(response.data);
   }
 
   @override
   Widget build(BuildContext context) {
     if (events == null) {
       //Si les events ne sont pas set, on getinfo
-      getEvents();
+      updateEvents().then((value) => null);
     }
-
-    final List<dynamic> items = events.values.toList();
-    print("I am test ${items[1].length}");
+    List<dynamic> items = events.values.toList();
     return ListView.builder(
         itemCount: items[1].length,
         itemBuilder: (context, index) {
@@ -117,7 +54,9 @@ class MyDisplayAllEventsDisplayState extends State<MyDisplayAllEventsDisplay> {
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Processing Data')));
-                      subscribeEvent(index + 1).then((value) => {});
+                      eventService
+                          .subscribeEvent(index + 1)
+                          .then((value) => {});
                     },
                   ),
                 ),
@@ -128,7 +67,9 @@ class MyDisplayAllEventsDisplayState extends State<MyDisplayAllEventsDisplay> {
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Processing Data')));
-                      unsubscribeEvent(index + 1).then((value) => {});
+                      eventService
+                          .unsubscribeEvent(index + 1)
+                          .then((value) => {});
                     },
                   ),
                 )
