@@ -1,11 +1,13 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'package:gengoffee/app/auth/register.dart';
+import 'package:gengoffee/app/home.dart';
+import 'package:gengoffee/services/auth_service.dart';
+import 'auth/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  SharedPreferences.setMockInitialValues({});
   runApp(MyApp());
 }
 
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+
       ),
       home: Login(),
     );

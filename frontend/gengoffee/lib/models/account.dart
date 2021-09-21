@@ -12,18 +12,17 @@ class Account {
 
   Account({this.username, this.email, this.firstName, this.lastName, this.age, this.city, this.country, this.nationality, this.gender, this.token});
 
-  factory Account.fromJson(Map<String, dynamic> json) {
+  factory Account.fromJson(dynamic json) {
     return Account(
       username: json['username'],
       email: json['email'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
-      age: json['age'],
-      city: json['city'],
-      country: json['country'],
-      nationality: json['nationality'],
-      gender: json['gender'],
-      token: json['token'],
+      firstName: json['first_name']['value'],
+      lastName: json['last_name']['value'],
+      age: json['age']['value'],
+      city: json['city']['value'],
+      country: json['country']['value'],
+      gender: json['gender']['value'],
+      nationality: json['nationality']
     );
   }
 }
